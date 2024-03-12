@@ -4,18 +4,18 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import TitleScreen from './TitleScreen';
+import Bench from './Bench';
 
 const HomeScreen = ({ navigation }) => {
-  const goToTitleScreen = () => {
-    navigation.navigate('TitleScreen');
+  const goToBench = () => {
+    navigation.navigate('Bench');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>HOME SCREEN</Text>
-      <TouchableOpacity style={styles.buttonContainer} onPress={goToTitleScreen}>
-        <Text style={styles.buttonText}>RETURN TO TITLE SCREEN</Text>
+      <Text style={styles.text}>CHOOSE YOUR LINEUP</Text>
+      <TouchableOpacity style={styles.buttonContainer} onPress={goToBench}>
+        <Text style={styles.buttonText}>GO TO BENCH</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
