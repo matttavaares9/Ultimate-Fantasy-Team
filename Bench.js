@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window'); // Get the width of the screen
+const { width, height } = Dimensions.get('window');
 
 const playersData = [
     { id: '1', name: 'PLAYER NAME', dateOfGame: '[DATE OF GAME]', ovrPoints: 'X' },
@@ -34,9 +34,6 @@ const Bench = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text style={styles.backButtonText}>Back</Text>
-            </TouchableOpacity>
             <Text style={styles.benchHeader}>BENCH</Text>
             <FlatList
                 data={playersData}
@@ -44,9 +41,20 @@ const Bench = () => {
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.listContentContainer}
             />
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}><Text>MY TEAM</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton}><Text>PACKS</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton}><Text>MATCHUP</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton}><Text>LEAGUE</Text></TouchableOpacity>
+            </View>
         </SafeAreaView>
+
     );
 };
+
+const buttonWidth = width * 0.18; // 18% of the screen width
+const buttonHeight = height * 0.1; // 8% of the screen height
+const footerHeight = height * 0.1; // 10% of the screen height
 
 const styles = StyleSheet.create({
     container: {
@@ -99,6 +107,19 @@ const styles = StyleSheet.create({
     playerName: {
         fontWeight: 'bold',
         fontSize: width * 0.04, // scales size based on screen width
+    },
+    footer: {
+        height: footerHeight,
+        top: 35,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#808080',
+    },
+    footerButton: {
+        width: buttonWidth,
+        height: buttonHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
