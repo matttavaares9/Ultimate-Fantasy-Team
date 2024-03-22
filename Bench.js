@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     footerButton: {
         width: buttonWidth,
-        height: buttonHeight,
+        height: buttonHeight - 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
