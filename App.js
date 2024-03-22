@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './HomeScreen';
 import TitleScreen from './TitleScreen';
 import Bench from './Bench';
+import Packs from './Packs';
+import Matchup from './Matchup';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,8 @@ const App = () => {
         <Stack.Screen name="Bench" component={Bench} />
         <Stack.Screen name="TitleScreen" component={TitleScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="Packs" component={Packs} />
+        <Stack.Screen name="Matchup" component={Matchup} />
         
       </Stack.Navigator>
     </NavigationContainer>
