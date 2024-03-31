@@ -1,94 +1,106 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    Image,
-    TouchableOpacity,
-    Dimensions,
-    SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, TouchableOpacity, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const Matchup = () => {
-    const navigation = useNavigation();
+const Matchup = ({ navigation }) => {
+
+    const goToPacks = () => {
+        navigation.navigate('Packs');
+    };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.benchHeader}>PACKS</Text>
+        <View style={styles.container}>
+            <Text style={styles.header}>MATCHUP</Text>
+            <View style={styles.teamsContainer}>
+                <View style={styles.team}>
+
+                    <Text style={styles.teamText}>TEAM 1</Text>
+                    <Text style={styles.overallText}>OVR: X</Text>
+                </View>
+                <View style={styles.team}>
+
+                    <Text style={styles.teamText}>TEAM 2</Text>
+                    <Text style={styles.overallText}>OVR: X</Text>
+                </View>
+            </View>
+            <View style={styles.scoreContainer}>
+                <Text style={styles.scoreText}>XXX - XXX</Text>
+            </View>
+            <View style={styles.playerInfoContainer}>
+                <Text style={styles.playerInfoText}>PLAYER INFO</Text>
+                {/* Additional player info would go here */}
+            </View>
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}><Text>MY TEAM</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>PACKS</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton}><Text>MY TEAM</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={goToPacks} ><Text>PACKS</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.footerButton}><Text>MATCHUP</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.footerButton}><Text>LEAGUE</Text></TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
+
 
     );
 };
 
 const buttonWidth = width * 0.18; // 18% of the screen width
-const buttonHeight = height * 0.1; // 1% of the screen height
+const buttonHeight = height * 0.08; // 8% of the screen height
 const footerHeight = height * 0.1; // 10% of the screen height
+const buttonSize = 60; // The size of the buttons
+const courtPadding = 20; // The padding inside the courtContainer
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-    },
-    backButton: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-    },
-    backButtonText: {
-        fontSize: 18,
-    },
-    benchHeader: {
-        padding: 20,
-        fontSize: width * 0.05, // scales size based on screen width
-        backgroundColor: '#f5f5f5',
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    listContentContainer: {
-        paddingBottom: 60, // space for the footer
-    },
-    playerCard: {
-        flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        padding: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
+        justifyContent: 'center',
+        backgroundColor: 'white',
     },
-    playerImage: {
-        width: width * 0.12, // scales size based on screen width
-        height: width * 0.12, // keeps the aspect ratio the same
-        backgroundColor: '#f0e68c',
-    },
-    playerDetails: {
-        marginLeft: 10,
-        flex: 1, // takes up the rest of the space in the card
-    },
-    playerName: {
+    header: {
+        fontSize: 24,
         fontWeight: 'bold',
-        fontSize: width * 0.04, // scales size based on screen width
+        marginBottom: 20,
+    },
+    teamsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginBottom: 20,
+    },
+    team: {
+        alignItems: 'center',
+    },
+    logo: {
+        width: 50,
+        height: 50,
+    },
+    teamText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    overallText: {
+        fontSize: 16,
+    },
+    scoreContainer: {
+        marginBottom: 20,
+    },
+    scoreText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+    playerInfoContainer: {
+        width: '90%',
+        height: 200,
+        backgroundColor: '#d3d3d3',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    playerInfoText: {
+        fontSize: 24,
+        fontWeight: 'bold',
     },
     footer: {
         height: footerHeight,
-        top: 35,
         flexDirection: 'row',
         justifyContent: 'space-around',
         backgroundColor: '#808080',
@@ -101,4 +113,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Packs;
+export default Matchup;
