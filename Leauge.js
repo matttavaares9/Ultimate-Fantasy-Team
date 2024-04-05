@@ -1,104 +1,111 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    Image,
-    TouchableOpacity,
-    Dimensions,
-    SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const League = () => {
-    const navigation = useNavigation();
+const LeagueScreen = ({ navigation }) => {
+    // Temporary standings data
+    const standings = [
+        { team: 'Team A', wins: 10, losses: 2 },
+        { team: 'Team B', wins: 9, losses: 3 },
+        { team: 'Team C', wins: 8, losses: 4 },
+        // Add more teams as needed
+    ];
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.benchHeader}>PACKS</Text>
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}><Text>MY TEAM</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>PACKS</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>MATCHUP</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>LEAGUE</Text></TouchableOpacity>
+        <View style={styles.container}>
+            <Text style={styles.header}>LEAGUE</Text>
+            <View style={styles.nameInfoContainer}>
+                <Text style={styles.nameText}>NAME</Text>
+                <Text style={styles.infoText}>INFO</Text>
             </View>
-        </SafeAreaView>
-
+            <Text style={styles.standingsHeader}>STANDINGS</Text>
+            <ScrollView style={styles.standingsContainer}>
+                {standings.map((item, index) => (
+                    <View key={index} style={styles.standingRow}>
+                        <Text style={styles.teamName}>{item.team}</Text>
+                        <Text style={styles.teamRecord}>{item.wins} - {item.losses}</Text>
+                    </View>
+                ))}
+            </ScrollView>
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('HomeScreen')}><Text>MY TEAM</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Packs')}><Text>PACKS</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Matchup')}><Text>MATCHUP</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('League')}><Text>LEAGUE</Text></TouchableOpacity>
+            </View>
+        </View>
     );
 };
 
+
 const buttonWidth = width * 0.18; // 18% of the screen width
-const buttonHeight = height * 0.1; // 1% of the screen height
+const buttonHeight = height * 0.1; // 8% of the screen height
 const footerHeight = height * 0.1; // 10% of the screen height
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
     },
-    backButton: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: height * 0.02,
+        marginBottom: height * 0.01,
     },
-    backButtonText: {
+    nameInfoContainer: {
+        backgroundColor: '#d3d3d3',
+        padding: 10,
+        alignItems: 'center',
+        marginBottom: height * 0.01,
+    },
+    nameText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    infoText: {
+        fontSize: 16,
+    },
+    standingsHeader: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: height * 0.01,
+    },
+    standingsContainer: {
+        flex: 1,
+        marginBottom: height * 0.1, // Footer height
+    },
+    standingRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'black',
+    },
+    teamName: {
         fontSize: 18,
     },
-    benchHeader: {
-        padding: 20,
-        fontSize: width * 0.05, // scales size based on screen width
-        backgroundColor: '#f5f5f5',
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    listContentContainer: {
-        paddingBottom: 60, // space for the footer
-    },
-    playerCard: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        padding: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
-    },
-    playerImage: {
-        width: width * 0.12, // scales size based on screen width
-        height: width * 0.12, // keeps the aspect ratio the same
-        backgroundColor: '#f0e68c',
-    },
-    playerDetails: {
-        marginLeft: 10,
-        flex: 1, // takes up the rest of the space in the card
-    },
-    playerName: {
-        fontWeight: 'bold',
-        fontSize: width * 0.04, // scales size based on screen width
+    teamRecord: {
+        fontSize: 18,
     },
     footer: {
-        height: footerHeight,
-        top: 35,
+        position: 'absolute',
+        bottom: 0,
         flexDirection: 'row',
+        width: '100%',
+        height: footerHeight,
         justifyContent: 'space-around',
         backgroundColor: '#808080',
     },
     footerButton: {
         width: buttonWidth,
-        height: buttonHeight,
+        height: buttonHeight - 19,
         justifyContent: 'center',
         alignItems: 'center',
     },
 });
 
-export default League;
+export default LeagueScreen;
