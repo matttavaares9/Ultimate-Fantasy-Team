@@ -59,10 +59,10 @@ const HomeScreen = ({ navigation }) => {
         ))}
       </ScrollView>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton}><Text>MY TEAM</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}><Text>PACKS</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}><Text>MATCHUP</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}><Text>LEAGUE</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('HomeScreen')}><Text>MY TEAM</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Packs')}><Text>PACKS</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Matchup')}><Text>MATCHUP</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('League')}><Text>LEAGUE</Text></TouchableOpacity>
       </View>
     </View>
   );
