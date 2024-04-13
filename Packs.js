@@ -1,23 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
-
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, Alert } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 const Packs = ({ navigation }) => {
-    const [timer, setTimer] = useState('00:00');
+    const [endTime, setEndTime] = useState(null);
+    const [timer, setTimer] = useState('CLAIM NOW');
+    const [countdownActive, setCountdownActive] = useState(false);
 
-    // Placeholder for countdown logic
+    const claimPack = () => {
+        Alert.alert(
+            'Pack Claimed',
+            'You have successfully claimed your pack!',
+            [{ text: 'OK', onPress: () => startCountdown() }]
+        );
+    };
+
+    const startCountdown = () => {
+        const now = new Date();
+        const futureTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        setEndTime(futureTime);
+        setCountdownActive(true);
+    };
+
     useEffect(() => {
-        // Logic to handle countdown will go here
-    }, []);
+        let interval;
+        if (countdownActive && endTime) {
+            interval = setInterval(() => {
+                const now = new Date();
+                const distance = endTime - now;
+                if (distance < 0) {
+                    clearInterval(interval);
+                    setTimer('CLAIM NOW');
+                    setCountdownActive(false);
+                } else {
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    setTimer(
+                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+                    );
+                }
+            }, 1000);
+        }
+
+        return () => clearInterval(interval);
+    }, [countdownActive, endTime]);
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>PACKS</Text>
-            <TouchableOpacity style={styles.buttonLarge}>
+            <TouchableOpacity style={styles.buttonLarge} onPress={!countdownActive ? claimPack : null}>
                 <Text style={styles.buttonLargeText}>DAILY FREE PACK</Text>
-                <Text style={styles.timer}>{timer}</Text>
+                <Text style={styles.buttonLargeText}>{timer}</Text>
             </TouchableOpacity>
             <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.buttonSmall}>
