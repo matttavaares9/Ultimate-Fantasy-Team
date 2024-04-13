@@ -20,7 +20,7 @@ const calculateFantasyPoints = (pts, reb, ast, stl, blk) => {
 const HomeScreen = ({ navigation }) => {
   // Dummy data for player stats
   const [playersStats, setPlayersStats] = useState([
-    { name: 'Jalen Brunson', pts: '39', reb: '2', ast: '4', stl: '0', blk: '0', image: require('./assets/Brunson.png') },
+    { name: 'Jalen Brunson', pts: '39', reb: '2', ast: '4', stl: '2', blk: '1', image: require('./assets/Brunson.png') },
     { name: 'Devin Booker', pts: '37', reb: '1', ast: '4', stl: '1', blk: '1', image: require('./assets/Booker.png') },
     { name: 'Demar DeRozan', pts: '39', reb: '4', ast: '7', stl: '3', blk: '0', image: require('./assets/Demar.png') },
     { name: 'Paolo Banchero', pts: '20', reb: '6', ast: '6', stl: '1', blk: '0', image: require('./assets/Paolo.png') },
@@ -75,9 +75,15 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView vertical style={styles.statsContainer}>
         {playersStats.map((player) => (
           <View key={player.name} style={styles.playerStat}>
-            <Text style={styles.statText}>{player.name} [{player.F_pts}]</Text>
-            <Text style={styles.statText}>{player.pts} pts, {player.reb} reb, {player.ast} ast, {player.stl} stl, {player.blk} blk</Text>
-
+            <Image source={player.image} style={styles.playerImageSmall} />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.statText}>
+                {player.name} [{player.F_pts}]
+              </Text>
+              <Text style={styles.statText}>
+                {player.pts} pts, {player.reb} reb, {player.ast} ast, {player.stl} stl, {player.blk} blk
+              </Text>
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -94,8 +100,6 @@ const HomeScreen = ({ navigation }) => {
 const buttonWidth = width * 0.18; // 18% of the screen width
 const buttonHeight = height * 0.08; // 8% of the screen height
 const footerHeight = height * 0.1; // 10% of the screen height
-const buttonSize = 60; // The size of the buttons
-const courtPadding = 20; // The padding inside the courtContainer
 
 const styles = StyleSheet.create({
   container: {
@@ -172,12 +176,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFEF',
   },
   playerStat: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#DDD',
   },
+  playerImageSmall: { // New style for the image in the stats line
+    width: width * 0.15, // Adjust as needed
+    height: width * 0.15, // Adjust as needed
+    resizeMode: 'contain',
+    marginRight: 10, // Add some spacing between the image and the stats
+  },
   statText: {
-    fontSize: width * 0.04, // Font size as a percentage of the screen width
+    fontSize: width * 0.04,
   },
   footer: {
     height: footerHeight,
