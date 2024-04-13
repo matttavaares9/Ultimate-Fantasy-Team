@@ -1,95 +1,115 @@
-import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    Image,
-    TouchableOpacity,
-    Dimensions,
-    SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+
 
 const { width, height } = Dimensions.get('window');
 
-const Packs = () => {
-    const navigation = useNavigation();
+const Packs = ({ navigation }) => {
+    const [timer, setTimer] = useState('00:00');
+
+    // Placeholder for countdown logic
+    useEffect(() => {
+        // Logic to handle countdown will go here
+    }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.benchHeader}>PACKS</Text>
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}><Text>MY TEAM</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>PACKS</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>MATCHUP</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.footerButton}><Text>LEAGUE</Text></TouchableOpacity>
+        <View style={styles.container}>
+            <Text style={styles.header}>PACKS</Text>
+            <TouchableOpacity style={styles.buttonLarge}>
+                <Text style={styles.buttonLargeText}>DAILY FREE PACK</Text>
+                <Text style={styles.timer}>{timer}</Text>
+            </TouchableOpacity>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity style={styles.buttonSmall}>
+                    <Text style={styles.buttonSmallText}>SETS</Text>
+                    <Text style={styles.buttonSubtitle}>Exchange items for rewards</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSmall}>
+                    <Text style={styles.buttonSmallText}>CHALLENGES</Text>
+                    <Text style={styles.buttonSubtitle}>Complete challenges for rewards</Text>
+                </TouchableOpacity>
             </View>
-        </SafeAreaView>
-
+            <TouchableOpacity style={styles.buttonFullWidth}>
+                <Text style={styles.buttonFullWidthText}>GET CARDS</Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('HomeScreen')}><Text>   MY TEAM</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Packs')}><Text>PACKS</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Matchup')}><Text>MATCHUP</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('League')}><Text>LEAGUE</Text></TouchableOpacity>
+            </View>
+        </View>
     );
 };
 
 const buttonWidth = width * 0.18; // 18% of the screen width
-const buttonHeight = height * 0.1; // 1% of the screen height
+const buttonHeight = height * 0.08; // 8% of the screen height
 const footerHeight = height * 0.1; // 10% of the screen height
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
         backgroundColor: '#fff',
     },
-    backButton: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
     },
-    backButtonText: {
+    buttonLarge: {
+        width: '100%',
+        padding: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f0f0',
+        marginBottom: 20,
+    },
+    buttonLargeText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    timer: {
         fontSize: 18,
     },
-    benchHeader: {
-        padding: 20,
-        fontSize: width * 0.05, // scales size based on screen width
-        backgroundColor: '#f5f5f5',
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    listContentContainer: {
-        paddingBottom: 60, // space for the footer
-    },
-    playerCard: {
+    buttonRow: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    buttonSmall: {
+        width: '48%',
+        padding: 20,
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        padding: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
+        backgroundColor: '#f0f0f0',
+        marginBottom: 20,
     },
-    playerImage: {
-        width: width * 0.12, // scales size based on screen width
-        height: width * 0.12, // keeps the aspect ratio the same
-        backgroundColor: '#f0e68c',
-    },
-    playerDetails: {
-        marginLeft: 10,
-        flex: 1, // takes up the rest of the space in the card
-    },
-    playerName: {
+    buttonSmallText: {
+        fontSize: 18,
         fontWeight: 'bold',
-        fontSize: width * 0.04, // scales size based on screen width
+    },
+    buttonSubtitle: {
+        fontSize: 14,
+    },
+    buttonFullWidth: {
+        width: '100%',
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f0f0',
+    },
+    buttonFullWidthText: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     footer: {
-        height: footerHeight,
-        top: 35,
+        position: 'absolute',
+        bottom: 0,
         flexDirection: 'row',
+        width: '110%',
+        height: footerHeight,
         justifyContent: 'space-around',
         backgroundColor: '#808080',
     },
