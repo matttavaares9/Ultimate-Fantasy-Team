@@ -1,17 +1,46 @@
-import React from 'react';
-import { View, ImageBackground, TouchableOpacity, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Text,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
+const calculateFantasyPoints = (pts, reb, ast, stl, blk) => {
+  // Standard NBA fantasy points system calculations
+  return pts + (reb * 1.2) + (ast * 1.5) + (stl * 3) + (blk * 3);
+};
+
 const HomeScreen = ({ navigation }) => {
   // Dummy data for player stats
-  const playersStats = [
-    { name: 'Player 1', F_pts: '21', pts: '10', reb: '5', ast: '7', stl: '2', blk: '1' },
-    { name: 'Player 2', F_pts: '15', pts: '8', reb: '3', ast: '4', stl: '1', blk: '0' },
-    { name: 'Player 3', F_pts: '10', pts: '5', reb: '2', ast: '3', stl: '1', blk: '0' },
-    { name: 'Player 4', F_pts: '43', pts: '45', reb: '2', ast: '3', stl: '1', blk: '0' },
-    { name: 'Player 5', F_pts: '14', pts: '5', reb: '2', ast: '3', stl: '1', blk: '0' },
-  ];
+  const [playersStats, setPlayersStats] = useState([
+    { name: 'Jalen Brunson', pts: '39', reb: '2', ast: '4', stl: '0', blk: '0', image: require('./assets/Brunson.png') },
+    { name: 'Devin Booker', pts: '37', reb: '1', ast: '4', stl: '1', blk: '1', image: require('./assets/Booker.png') },
+    { name: 'Demar DeRozan', pts: '39', reb: '4', ast: '7', stl: '3', blk: '0', image: require('./assets/Demar.png') },
+    { name: 'Paolo Banchero', pts: '20', reb: '6', ast: '6', stl: '1', blk: '0', image: require('./assets/Paolo.png') },
+    { name: 'Nikola Jokic', pts: '41', reb: '11', ast: '7', stl: '3', blk: '0', image: require('./assets/Jokic.png') },
+  ]);
+
+  // Effect to calculate fantasy points based on stats
+  useEffect(() => {
+    const updatedStats = playersStats.map(player => {
+      const fantasyPoints = calculateFantasyPoints(
+        parseInt(player.pts),
+        parseInt(player.reb),
+        parseInt(player.ast),
+        parseInt(player.stl),
+        parseInt(player.blk)
+      );
+      return { ...player, F_pts: fantasyPoints.toFixed(1) };
+    });
+    setPlayersStats(updatedStats);
+  }, []);
 
   // Function to navigate to Bench.js
   const goToBench = () => {
@@ -29,21 +58,15 @@ const HomeScreen = ({ navigation }) => {
           resizeMode="stretch"
           style={styles.courtImage}
         >
-          <TouchableOpacity style={[styles.positionButton, styles.pgPosition]} onPress={goToBench}>
-            <Text>PG</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.positionButton, styles.sgPosition]} onPress={goToBench}>
-            <Text>SG</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.positionButton, styles.sfPosition]} onPress={goToBench}>
-            <Text>SF</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.positionButton, styles.pfPosition]} onPress={goToBench}>
-            <Text>PF</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.positionButton, styles.cPosition]} onPress={goToBench}>
-            <Text>C</Text>
-          </TouchableOpacity>
+          {playersStats.map((player, index) => (
+            <TouchableOpacity
+              key={player.name}
+              style={[styles.positionButton, styles[`position${index + 1}`]]}
+              onPress={goToBench}
+            >
+              <Image source={player.image} style={styles.playerImage} />
+            </TouchableOpacity>
+          ))}
         </ImageBackground>
       </View>
       <View style={styles.header}>
@@ -113,27 +136,36 @@ const styles = StyleSheet.create({
     height: buttonHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFF00',
   },
-  pgPosition: {
-    top: '35%',
-    left: '43%',
+  playerImage: {
+    width: '150%',
+    height: '150%',
+    resizeMode: 'contain'
   },
-  sgPosition: {
-    top: 50, // Adjust accordingly
-    right: 30,
+  position1: {
+    position: 'absolute',
+    top: height * 0.3, // Adjust these values
+    left: width * 0.4, // Adjust these values
   },
-  sfPosition: {
-    top: 50, // Adjust accordingly
-    left: 120,
+  position2: {
+    position: 'absolute',
+    top: height * 0.2, // Adjust these values
+    left: width * 0.7, // Adjust these values
   },
-  pfPosition: {
-    bottom: 80, // Adjust accordingly
-    right: 150,
+  position3: {
+    position: 'absolute',
+    top: height * 0.2, // Adjust these values
+    left: width * 0.1, // Adjust these values
   },
-  cPosition: {
-    bottom: 80,
-    right: 100, // Center horizontally
+  position4: {
+    position: 'absolute',
+    top: height * 0.08, // Adjust these values
+    left: width * 0.62, // Adjust these values
+  },
+  position5: {
+    position: 'absolute',
+    top: height * 0.08, // Adjust these values
+    left: width * 0.22, // Adjust these values
   },
   statsContainer: {
     flex: 1,
