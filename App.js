@@ -6,7 +6,8 @@ import TitleScreen from './TitleScreen';
 import Bench from './Bench';
 import Packs from './Packs';
 import Matchup from './Matchup';
-import League from './Leauge';
+import League from './League';
+import getPacks from './getPacks';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,8 @@ const App = () => {
         <Stack.Screen name="Packs" component={Packs} />
         <Stack.Screen name="Matchup" component={Matchup} />
         <Stack.Screen name="League" component={League} />
-        
+        <Stack.Screen name="getPacks" component={getPacks} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
