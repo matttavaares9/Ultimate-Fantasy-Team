@@ -55,16 +55,16 @@ const Packs = ({ navigation }) => {
                 <Text style={styles.buttonLargeText}>{timer}</Text>
             </TouchableOpacity>
             <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.buttonSmall}>
+                <TouchableOpacity style={styles.buttonSmall} onPress={() => navigation.navigate('Sets')}>
                     <Text style={styles.buttonSmallText}>SETS</Text>
                     <Text style={styles.buttonSubtitle}>Exchange items for rewards</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonSmall}>
+                <TouchableOpacity style={styles.buttonSmall} onPress={() => navigation.navigate('Challenges')}>
                     <Text style={styles.buttonSmallText}>CHALLENGES</Text>
                     <Text style={styles.buttonSubtitle}>Complete challenges for rewards</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonFullWidth}>
+            <TouchableOpacity style={styles.buttonFullWidth} onPress={() => navigation.navigate('getPacks')}>
                 <Text style={styles.buttonFullWidthText}>GET CARDS</Text>
             </TouchableOpacity>
             <View style={styles.footer}>
