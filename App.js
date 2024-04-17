@@ -8,6 +8,8 @@ import Packs from './Packs';
 import Matchup from './Matchup';
 import League from './League';
 import getPacks from './getPacks';
+import Sets from './Sets';
+import Challenges from './Challenges';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,8 @@ const App = () => {
         <Stack.Screen name="Matchup" component={Matchup} />
         <Stack.Screen name="League" component={League} />
         <Stack.Screen name="getPacks" component={getPacks} />
+        <Stack.Screen name="Sets" component={Sets} />
+        <Stack.Screen name="Challenges" component={Challenges} />
 
       </Stack.Navigator>
     </NavigationContainer>
