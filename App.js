@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +7,10 @@ import Packs from './Packs';
 import Matchup from './Matchup';
 import League from './League';
 import TitleScreen from './TitleScreen';
+import Bench from './Bench';
+import getPacks from './getPacks';
+import Challenges from './Challenges';
+import Sets from './Sets';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +36,10 @@ const App = () => {
       <Stack.Navigator initialRouteName="TitleScreen" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TitleScreen" component={TitleScreen} />
         <Stack.Screen name="MainTabs" component={SwipeableTabs} />
+        <Stack.Screen name="Bench" component={Bench} />
+        <Stack.Screen name="getPacks" component={getPacks} />
+        <Stack.Screen name="Challenges" component={Challenges} />
+        <Stack.Screen name="Sets" component={Sets} />
       </Stack.Navigator>
     </NavigationContainer>
   );
