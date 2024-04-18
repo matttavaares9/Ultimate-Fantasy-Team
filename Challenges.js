@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const ChallengesScreen = ({ navigation }) => {
+
+    const challengeCompleted = false; // example value
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -9,9 +12,22 @@ const ChallengesScreen = ({ navigation }) => {
             </View>
             <View style={styles.content}>
                 <View style={styles.section}>
-                    <Text style={styles.subtitle}>Challenges</Text>
-                    <Text style={styles.description}>Complete challenges for rewards</Text>
-                    {/* Render challenge cards */}
+                    <Text style={styles.subtitle}>Point God</Text>
+                    <View style={styles.challengeCard}>
+                        <Image
+                            style={styles.packImage}
+                            source={require('./assets/gold.png')} // Replace with the actual image URL
+                        />
+                        <View style={styles.challengeInfo}>
+                            <Text style={styles.challengeText}>Have two point cards get 40+ fantasy points in a day for a Gold Pack</Text>
+                            <TouchableOpacity
+                                style={[styles.challengeButton, challengeCompleted ? styles.buttonCompleted : null]}
+                                disabled={challengeCompleted}
+                            >
+                                <Text style={styles.buttonText}>{challengeCompleted ? 'Completed' : 'Incomplete'}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </View>
             <View style={styles.tabBar}>
@@ -69,6 +85,44 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: 'lightgray',
     },
+    challengeCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: '#FFF0D9', // Consistent color with the trade-in card
+        borderRadius: 8,
+        marginTop: 10,
+        borderWidth: 1,
+        borderColor: '#E8E8E8',
+    },
+    packImage: {
+        width: 80,
+        height: 120,
+        resizeMode: 'contain',
+    },
+    challengeInfo: {
+        flex: 1,
+        paddingHorizontal: 10,
+        justifyContent: 'space-between',
+    },
+    challengeText: {
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    challengeButton: {
+        backgroundColor: '#DAA520', // Gold color for the 'Gold Pack' theme
+        padding: 10,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    buttonCompleted: {
+        backgroundColor: 'green', // Color to indicate completion
+    },
 });
+
 
 export default ChallengesScreen;
