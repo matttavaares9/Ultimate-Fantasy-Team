@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const SetsScreen = ({ navigation }) => {
+
+    const lakersPlayersTradedIn = 2; // example value
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -11,7 +14,20 @@ const SetsScreen = ({ navigation }) => {
                 <View style={styles.section}>
                     <Text style={styles.subtitle}>Trade-In</Text>
                     <Text style={styles.description}>Exchange cards for rewards</Text>
-                    {/* Render trade-in options */}
+                </View>
+                <Text style={styles.subtitle}>Lakers Trade-In</Text>
+                <View style={styles.tradeInSection}>
+                    <Image
+                        style={styles.rewardImage}
+                        source={require('./assets/Brunson.png')} // Replace with the actual image URL
+                    />
+                    <View style={styles.tradeInInfo}>
+                        <Text style={styles.tradeInText}>Trade in 4 players that started on the Lakers for a Reward LeBron Card</Text>
+                        <Text style={styles.progressText}>{lakersPlayersTradedIn} of 4 traded in</Text>
+                    </View>
+                    <TouchableOpacity style={styles.tradeInButton}>
+                        <Text style={styles.buttonText}>Trade In</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.tabBar}>
@@ -20,7 +36,7 @@ const SetsScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Matchup')}><Text>MATCHUP</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('League')}><Text>LEAGUE</Text></TouchableOpacity>
             </View>
-        </View>
+        </View >
     );
 };
 
@@ -68,6 +84,42 @@ const styles = StyleSheet.create({
         paddingVertical: 40,
         borderTopWidth: 1,
         borderColor: 'lightgray',
+    },
+    tradeInSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: '#FFF0D9', // A non-bland color for the trade-in card
+        borderRadius: 8,
+        marginTop: 10,
+    },
+    rewardImage: {
+        width: 80,
+        height: 120,
+        resizeMode: 'contain',
+    },
+    tradeInInfo: {
+        flex: 1,
+        paddingHorizontal: 10,
+    },
+    tradeInText: {
+        fontSize: 16,
+        fontWeight: '500',
+        marginBottom: 5,
+    },
+    progressText: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    tradeInButton: {
+        backgroundColor: '#6E7B47',
+        padding: 10,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });
 
