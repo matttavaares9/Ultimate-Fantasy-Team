@@ -66,6 +66,36 @@ def Games():
     else:
         print("Error:", response.status_code)
 
+def find_player_game(player_name, date):
+    # Construct the URL for the schedule API
+    schedule_url = f"https://api.sportradar.com/nba/trial/v8/en/games/{date}/schedule.json?api_key={key}"
+
+    # Make a GET request to the schedule API
+    schedule_response = requests.get(schedule_url)
+
+    # Check if the request was successful
+    if schedule_response.status_code == 200:
+        # Parse the JSON response
+        schedule_data = schedule_response.json()
+
+        # Iterate through the games scheduled for the specified date
+        for game in schedule_data["games"]:
+            # Check if the player is participating in the game
+            if player_name in [game["home"]["name"], game["away"]["name"]]:
+                # Return the game ID
+                return game["id"]
+
+    # Return None if the player is not playing on the given date
+    return None
+
+player = "Kevin Durant"
+date = "2024/04/03"
+game_ID = find_player_game(player, date)
+if game_ID:
+    print(f"{player} is playing in game ID: {game_ID}")
+else:
+    print(f"{player} is not playing on {date}")
+
 """
 Games()
 """
