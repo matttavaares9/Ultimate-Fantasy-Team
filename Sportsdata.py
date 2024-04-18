@@ -129,3 +129,35 @@ IP Address: 129.161.88.153
 
 """
 # MongoDB connection details
+
+"""
+UPDATE DATABASE WITH NEW POINT VALUES
+"""
+
+# MongoDB connection details
+username = 'matttavares9'
+password = 'WP6fRmKKrNzZ83uh'
+ip_address = '129.161.88.153'
+database_name = 'PlayerPoints'
+collection_name = 'Points'
+
+def update_player_points(player_name, new_points):
+    # Connect to the MongoDB database
+    client = MongoClient(f'mongodb://{username}:{password}@{ip_address}/{database_name}')
+    db = client[database_name]
+    collection = db[collection_name]
+
+    # Update the document with the matching player name
+    result = collection.update_one(
+        {"name": player_name},
+        {"$set": {"score": new_points}}
+    )
+
+    # Check if the update was successful
+    if result.modified_count == 1:
+        print(f"Points updated successfully for {player_name}. New points total: {new_points}")
+    else:
+        print(f"No document found for {player_name}")
+
+# Example usage
+update_player_points("LeBron James", 100)  # Update LeBron James' points to 100
