@@ -6,10 +6,10 @@ SPORTSRADAR API
 
 import requests
 
-key = "API_KEY"
+key = "QG6qvKeoIJ6MNIb2h3yP2a8eQxpAYkj96fABL4wi"
 
-def PlayerInfo():
-    game_ID = "7ac5fe68-6962-4f28-9bbb-85aa137f00cd"
+def PlayerInfo(ID, player_name):
+    game_ID = ID
 
     url = "https://api.sportradar.com/nba/trial/v8/en/games/{game_ID}/pbp.json?api_key={key}".format(game_ID = game_ID, key = key);
 
@@ -17,7 +17,7 @@ def PlayerInfo():
 
     response = requests.get(url, headers=headers)
 
-    player = "Garrett Temple"
+    player = player_name
 
     data = response.json()
 
@@ -66,4 +66,36 @@ def Games():
     else:
         print("Error:", response.status_code)
 
-PlayerInfo();
+"""
+Games()
+"""
+
+game_ID = "afb6b532-b001-4889-b4c6-ded47e4226b7"
+
+player = "Kevin Durant"
+PlayerInfo(game_ID, player)
+#Expected: 32
+#Actual: 32
+
+player = "Bradley Beal"
+PlayerInfo(game_ID, player)
+#Expected: 7
+#Actual: 7
+
+player = "Bol Bol"
+PlayerInfo(game_ID, player)
+#Expected: 15
+#Actual: 15
+
+
+"""
+---------------
+MONGO DB
+---------------
+
+username: matttavares9
+password: WP6fRmKKrNzZ83uh
+IP Address: 129.161.88.153
+
+"""
+# MongoDB connection details
