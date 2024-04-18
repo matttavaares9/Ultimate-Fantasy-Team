@@ -1,96 +1,48 @@
-
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+// TitleScreen.js
 
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './HomeScreen';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 
 const TitleScreen = ({ navigation }) => {
-    console.log('Navigation props:', navigation); // Check if navigation is being passed correctly
-    const goToHomeScreen = () => {
-      if (navigation) {
-        navigation.navigate('HomeScreen');
-      } else {
-        console.warn('Navigation prop is not available!');
-      }
-  };
-
   return (
-    
     <View style={styles.container}>
-      <Text style={styles.text}>FANTASY ULTIMATE TEAM</Text>
-      <TouchableOpacity style={styles.buttonContainer} onPress={goToHomeScreen}>
-        <Text style={styles.buttonText}>PLAY NOW!</Text>
+      <Text style={styles.title}>ULTIMATE</Text>
+      <Text style={styles.title}>FANTASY TEAM</Text>
+      <TouchableOpacity
+        style={styles.playButton}
+        onPress={() => navigation.navigate('MainTabs', { screen: 'HomeScreen' })}
+      >
+        <Text style={styles.playButtonText}>PLAY NOW!</Text>
       </TouchableOpacity>
-      <StatusBar style="auto" />
     </View>
   );
 };
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    text: {
-      fontSize: 28,
-      color: "#D8AF1F",
-    },
-    buttonContainer: {
-      marginTop: 20,
-      backgroundColor: '#e0e0e0',
-      padding: 10,
-      borderRadius: 10,
-    },
-    buttonText: {
-      fontSize: 16,
-      color: 'black', // Gold color of the text
-      textAlign: 'center', // Center align the text within the TouchableOpacity
-    },
-  });
-
-export default TitleScreen;
-
-
-
-/*
-export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('TitleScreen');
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>FANTASY ULTIMATE TEAM</Text>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('Hello World!')}>
-        <Text style={styles.buttonText}>PLAY NOW!</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black', // assuming black background from screenshot
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 28,
-    color: "#D8AF1F",
+  title: {
+    color: 'gold', // assuming gold color from screenshot
+    fontSize: 34, // choose the best size that fits your design
+    fontWeight: 'bold',
+    letterSpacing: 2, // adjust as necessary for your design
   },
-  buttonContainer: {
-    marginTop: 20,
-    backgroundColor: '#e0e0e0',
-    padding: 10,
-    borderRadius: 10,
+  playButton: {
+    backgroundColor: 'white', // assuming white button background from screenshot
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 30,
+    borderRadius: 25, // adjust for rounded corners
   },
-  buttonText: {
-    fontSize: 16,
-    color: 'black', // Gold color of the text
-    textAlign: 'center', // Center align the text within the TouchableOpacity
+  playButtonText: {
+    color: 'black', // assuming black text color from screenshot
+    fontSize: 20, // choose the best size that fits your design
+    fontWeight: 'bold',
   },
 });
-*/
+
+export default TitleScreen;
