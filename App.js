@@ -19,8 +19,10 @@ function SwipeableTabs() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      tabBarOptions={{ style: { height: 0 } }}
-      swipeEnabled={true}
+      screenOptions={{
+        tabBarStyle: { height: 0 },
+        swipeEnabled: true
+      }}
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="Packs" component={Packs} />
